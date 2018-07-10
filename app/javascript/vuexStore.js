@@ -15,13 +15,13 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    setStop: (state, payload) => {
+    setStop (state, payload) {
       state.currentStop = payload
     }
   },
   actions: {
-    setStop: (context) => {
-      context.commit('setStop')
+    setStop (context, payload) {
+      context.commit('setStop', payload)
     }
   }
 })
