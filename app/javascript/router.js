@@ -7,6 +7,7 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
+  linkActiveClass: 'is-active',
   routes: [{
     path: '/', name: 'Redirect', redirect: (to) => {
       if (to.query.redirect) {
