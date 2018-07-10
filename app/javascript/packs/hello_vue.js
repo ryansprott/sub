@@ -6,7 +6,7 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../app.vue'
+import Layout from '../layout.vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const el = document.querySelector("#vue-app")
   const app = new Vue({
     el,
-    render: h => h(App)
+    render: h => h(Layout)
   })
 })
 
