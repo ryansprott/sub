@@ -11,7 +11,7 @@
 
 <script>
 import Post from './Post.vue'
-import appService from './appService'
+import appService from '../appService'
 export default {
   components: {
     'app-post': Post

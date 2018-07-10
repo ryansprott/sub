@@ -10,7 +10,7 @@ const state = {
 const store = new Vuex.Store({
   state,
   getters: {
-    getStop: () => {
+    getStop () {
       return state.currentStop
     }
   },

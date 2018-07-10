@@ -7,7 +7,7 @@
 
 import Vue from 'vue'
 import store from '../vuexStore.js'
-import Layout from '../Layout.vue'
+import Layout from '../components/Layout.vue'
 import router from '../router'
 
 import BootstrapVue from 'bootstrap-vue'
