@@ -7,17 +7,18 @@
 
 import Vue from 'vue'
 import Layout from '../Layout.vue'
+import router from '../router'
+
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.querySelector("#vue-app")
+document.addEventListener('DOMContentLoaded', () => {  
   const app = new Vue({
-    el,
+    router,
     render: h => h(Layout)
-  })
+  }).$mount('#vue-app')
 })
 
 // The above code uses Vue without the compiler, which means you cannot
