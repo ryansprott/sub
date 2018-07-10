@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Category from './Category.vue'
+import Index from './Index.vue'
 import Something from './Something.vue'
 
 Vue.use(VueRouter)
@@ -29,10 +29,10 @@ const router = new VueRouter({
   {
     path: '/index',
     name: 'Index',
-    component: Category
+    component: Index
   },
   {
-    path: '/foo',
+    path: '/something',
     name: 'Something',
     component: Something
   }]
