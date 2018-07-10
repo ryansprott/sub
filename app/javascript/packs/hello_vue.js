@@ -15,10 +15,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 
 document.addEventListener('DOMContentLoaded', () => {  
+  const el = document.querySelector("#vue-app")
   const app = new Vue({
+    el,
     router,
     render: h => h(Layout)
-  }).$mount('#vue-app')
+  })
 })
 
 // The above code uses Vue without the compiler, which means you cannot
