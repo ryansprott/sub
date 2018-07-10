@@ -1,27 +1,20 @@
 <template>
-  <div id="layout">
-    <p>{{ message }}</p>
+  <div id="app-layout">
+    <app-header></app-header>
+    <category></category>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
+import AppHeader from "./AppHeader.vue"
+import AppFooter from "./AppFooter.vue"
+import Category from "./Category.vue"
 export default {
-  data () {
-    return {
-      items: [
-        {id: 1, content: "Foo"},
-        {id: 2, content: "Bar"},
-        {id: 3, content: "Baz"}
-      ],
-      message: "Hello Vue."
-    }
+  components: {
+    "app-header": AppHeader,
+    "app-footer": AppFooter,
+    "category": Category
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>
