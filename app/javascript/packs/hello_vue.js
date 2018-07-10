@@ -6,6 +6,7 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
+import store from '../vuexStore.js'
 import Layout from '../Layout.vue'
 import router from '../router'
 
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const el = document.querySelector("#vue-app")
   const app = new Vue({
     el,
+    store: store,
     router,
     render: h => h(Layout)
   })
