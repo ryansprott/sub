@@ -9,15 +9,12 @@ import Vue from 'vue'
 import App from '../app.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.body.appendChild(document.createElement('hello'))
+  const el = document.querySelector("#vue-app")
   const app = new Vue({
     el,
     render: h => h(App)
   })
-
-  console.log(app)
 })
-
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would
