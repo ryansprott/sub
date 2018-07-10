@@ -8,7 +8,22 @@ const state = {
 }
 
 const store = new Vuex.Store({
-  state
+  state,
+  getters: {
+    getStop: () => {
+      return state.currentStop
+    }
+  },
+  mutations: {
+    setStop: (state, payload) => {
+      state.currentStop = payload
+    }
+  },
+  actions: {
+    setStop: (context) => {
+      context.commit('setStop')
+    }
+  }
 })
 
 export default store
