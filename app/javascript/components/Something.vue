@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>Something else</h1>
-    <button class="btn btn-success" @click="setStop('foobar')">Blah</button>
+    <h3>Something</h3>
+    <something-else></something-else>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import SomethingElse from './SomethingElse.vue'
 export default {
-  methods: {
-    ...mapActions(['setStop'])
+  components: {
+    'something-else': SomethingElse
   }
 }
 </script>

@@ -1,27 +1,46 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
 
 const state = {
-  currentStop: 'R01'
+  user: {
+    firstname: 'place',
+    lastname: 'holder'
+  }
 }
 
 const store = new Vuex.Store({
   state,
   getters: {
-    getStop () {
-      return state.currentStop
+    getFirstName() {
+      return state.user.firstname
+    },
+    getLastName() {
+      return state.user.lastname
+    },
+    getUpperCase () {
+      return state.user.firstname.toUpperCase() 
+        + ' ' 
+        + state.user.lastname.toUpperCase()
     }
   },
   mutations: {
-    setStop (state, payload) {
-      state.currentStop = payload
+    setFirstName (state, payload) {
+      state.user.firstname = payload
+    },
+    setLastName (state, payload) {
+      state.user.lastname = payload
     }
   },
   actions: {
-    setStop (context, payload) {
-      context.commit('setStop', payload)
+    setName (context, payload) {
+      if (payload.name) {
+        if (payload.type == 'first') {
+          context.commit('setFirstName', payload.name)
+        } else if (payload.type == 'last') {
+          context.commit('setLastName', payload.name)
+        }
+      }
     }
   }
 })
