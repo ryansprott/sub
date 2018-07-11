@@ -1,12 +1,26 @@
 <template>
   <nav class="nav has-shadow">
     <div class="container">
-      <router-link class="nav-item is-tab" to="/" exact>
-        <img src="http://bit.ly/vue-img" />
-      </router-link>
-      <router-link class="nav-item is-tab" to="/something" exact>
-        Posts
-      </router-link>
+      <div class="tabs is-fullwidth">
+        <ul>
+          <li>
+            <router-link class="nav-item is-tab" to="/" exact>
+              Name
+            </router-link>
+          </li>
+          <li>
+            <router-link class="nav-item is-tab" to="/something" exact>
+              Posts
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 </template>
+
+<style scoped>
+div.tabs {
+  padding-bottom: 20px;
+}
+</style>

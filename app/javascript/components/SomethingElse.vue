@@ -1,10 +1,14 @@
 <template>
   <div class="columns">
     <div class="column">
-      <select :value="getOptionSelected" @change="fetchPostsFromApi($event.target.value)">
-        <option value="">---</option>
-        <option v-for="cat in getApiCategories" v-bind:key="cat">{{cat}}</option>
-      </select>
+      <div class="select is-rounded is-large is-fullwidth">
+        <select :value="getOptionSelected" @change="fetchPostsFromApi($event.target.value)">
+          <option value="">---</option>
+          <option v-for="cat in getApiCategories" :value="cat" v-bind:key="cat">
+            Category {{cat}}
+          </option>
+        </select>
+      </div>
       <div class="column" v-for="post in getPostsToShow" v-bind:key="post.id">
         <app-post :link="post.rest_api_enabler.Link">
           <h3 slot="title" v-html="post.title.rendered"></h3>

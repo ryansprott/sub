@@ -2,12 +2,12 @@
   <div>
     <div>{{getFirstName}} {{getLastName}} ({{getUpperCase}})</div>    
     <div>
-      <input @input="setName({
+      <input class="input is-large is-rounded" @input="setName({
         type: 'first',
         name: $event.target.value
       })" />
-
-      <input @input="setName({
+      <hr />
+      <input class="input is-large is-rounded" @input="setName({
         type: 'last',
         name: $event.target.value
       })" />
