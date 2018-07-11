@@ -5,14 +5,8 @@
         <img src="http://bit.ly/vue-img" />
       </router-link>
       <router-link class="nav-item is-tab" to="/something" exact>
-        Something
+        Posts
       </router-link>
     </div>
   </nav>
 </template>
-
-<script>
-export default {
-
-}
-</script>

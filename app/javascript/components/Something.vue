@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <h3>Something</h3>
-    <something-else></something-else>
-  </div>
+  <something-else></something-else>
 </template>
 
 <script>

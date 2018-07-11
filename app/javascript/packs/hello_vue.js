@@ -10,11 +10,6 @@ import store from '../vuexStore.js'
 import Layout from '../components/Layout.vue'
 import router from '../router'
 
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-Vue.use(BootstrapVue)
-
 document.addEventListener('DOMContentLoaded', () => {  
   const el = document.querySelector("#vue-app")
   const app = new Vue({

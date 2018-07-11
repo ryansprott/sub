@@ -1,5 +1,5 @@
 <template>      
-  <div class="app-post">
+  <div class="card">
     <div class="card-content">
       <slot name="title"></slot>
       <slot name="content"></slot>      

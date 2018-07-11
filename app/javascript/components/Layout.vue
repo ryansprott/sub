@@ -16,3 +16,5 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" src="bulma"></style>
