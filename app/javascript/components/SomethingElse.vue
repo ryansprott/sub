@@ -11,7 +11,7 @@
       </div>
       <div class="column" v-for="post in getPostsToShow" v-bind:key="post.id">
         <app-post :link="post.rest_api_enabler.Link">
-          <h3 slot="title" v-html="post.title.rendered"></h3>
+          <h3 class="title is-4" slot="title" v-html="post.title.rendered"></h3>
           <span slot="content" v-html="post.excerpt.rendered"></span>
         </app-post>
       </div>
