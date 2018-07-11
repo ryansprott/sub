@@ -1,15 +1,15 @@
 import axios from 'axios'
-//import { resolve } from 'path';
+import NProgress from 'nprogress'
 
 axios.defaults.baseURL = "https://api.fullstackweekly.com"
 
 axios.interceptors.request.use(config => {
-  console.log("AJAX start")
+  NProgress.start()
   return config
 })
 
 axios.interceptors.response.use(response => {
-  console.log("AJAX stop")
+  NProgress.done()
   return response
 })
 

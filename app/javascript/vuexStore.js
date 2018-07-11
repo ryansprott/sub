@@ -62,10 +62,12 @@ const store = new Vuex.Store({
       }
     },
     fetchPostsFromApi (context, payload) {
-      appService.getPosts(payload).then(data => {
-        context.commit('updatePosts', data)
-      })
-      context.commit('updateOptionSelected', payload)
+      if (payload) {
+        appService.getPosts(payload).then(data => {
+          context.commit('updatePosts', data)
+        })
+        context.commit('updateOptionSelected', payload)  
+      }
     }
   }
 })
