@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import appService from './appService'
 Vue.use(Vuex)
 
 const state = {
   user: {
     firstname: 'place',
     lastname: 'holder'
-  }
+  },
+  optionSelected: '',
+  postsToShow: []
 }
 
 const store = new Vuex.Store({
@@ -22,6 +25,12 @@ const store = new Vuex.Store({
       return state.user.firstname.toUpperCase() 
         + ' ' 
         + state.user.lastname.toUpperCase()
+    },
+    getPostsToShow () {
+      return state.postsToShow
+    },
+    getOptionSelected () {
+      return state.optionSelected
     }
   },
   mutations: {
@@ -30,6 +39,12 @@ const store = new Vuex.Store({
     },
     setLastName (state, payload) {
       state.user.lastname = payload
+    },
+    updatePosts (state, payload) {
+      state.postsToShow = payload
+    },
+    updateOptionSelected (state, payload) {
+      state.optionSelected = payload
     }
   },
   actions: {
@@ -41,6 +56,12 @@ const store = new Vuex.Store({
           context.commit('setLastName', payload.name)
         }
       }
+    },
+    getPostsFromApi (context, payload) {
+      appService.getPosts(payload).then(data => {
+        context.commit('updatePosts', data)
+      })
+      context.commit('updateOptionSelected', payload)
     }
   }
 })

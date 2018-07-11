@@ -1,38 +1,36 @@
 <template>
-  <div>    
     <div>
-      {{getFirstName}} {{getLastName}}
-    </div>
-    <div>
-      <select @change="setName({ 
-        type: 'first', 
-        name: $event.target.value 
-      })">
+      <select :value="getOptionSelected" @change="getPostsFromApi($event.target.value)">
         <option value="">---</option>
-        <option value="foo">Foo</option>
-        <option value="bar">Bar</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="11">11</option>
       </select>
+      <div v-for="post in getPostsToShow" v-bind:key="post.id">
+        <app-post :link="post.rest_api_enabler.Link">
+          <h3 slot="title" v-html="post.title.rendered"></h3>
+          <span slot="content" v-html="post.excerpt.rendered"></span>
+        </app-post>
+      </div>
     </div>
-    <div>
-      <input @input="setName({ 
-        type: 'last', 
-        name: $event.target.value 
-      })" />
-    </div>
-    <div>
-      {{getUpperCase}}
-    </div>
-  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Post from './Post.vue'
 export default {
+  components: {
+    'app-post': Post
+  },
   methods: {
-    ...mapActions(['setName'])
+    ...mapActions(['getPostsFromApi'])
   },
   computed: {
-    ...mapGetters(['getFirstName', 'getLastName', 'getUpperCase'])
+    ...mapGetters(['getPostsToShow', 'getOptionSelected'])
   }
 }
 </script>
