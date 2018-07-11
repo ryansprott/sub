@@ -9,6 +9,7 @@ const state = {
     lastname: 'holder'
   },
   optionSelected: '',
+  apiCategories: ['1', '2', '3', '4', '5', '6', '11'],
   postsToShow: []
 }
 
@@ -31,6 +32,9 @@ const store = new Vuex.Store({
     },
     getOptionSelected () {
       return state.optionSelected
+    },
+    getApiCategories () {
+      return state.apiCategories
     }
   },
   mutations: {
@@ -57,7 +61,7 @@ const store = new Vuex.Store({
         }
       }
     },
-    getPostsFromApi (context, payload) {
+    fetchPostsFromApi (context, payload) {
       appService.getPosts(payload).then(data => {
         context.commit('updatePosts', data)
       })

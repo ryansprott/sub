@@ -3,6 +3,16 @@ import axios from 'axios'
 
 axios.defaults.baseURL = "https://api.fullstackweekly.com"
 
+axios.interceptors.request.use(config => {
+  console.log("AJAX start")
+  return config
+})
+
+axios.interceptors.response.use(response => {
+  console.log("AJAX stop")
+  return response
+})
+
 const appService = {
   getPosts (categoryId) {
     return new Promise((resolve) => {
