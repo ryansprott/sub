@@ -8,11 +8,11 @@
       </select>
     </div>
     <h1>Northbound</h1>
-    <div v-for="stop in getNorthboundStops" v-bind:key="stop[3]">
+    <div v-for="stop in getNorthboundArrivals" v-bind:key="stop[3]">
       {{stop}}
     </div>
     <h1>Southbound</h1>
-    <div v-for="stop in getSouthboundStops" v-bind:key="stop[3]">
+    <div v-for="stop in getSouthboundArrivals" v-bind:key="stop[3]">
       {{stop}}
     </div>
   </div>
@@ -22,7 +22,7 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['getAllStops', 'getNorthboundStops', 'getSouthboundStops', 'getCurrentStop'])
+    ...mapGetters(['getAllStops', 'getCurrentStop', 'getNorthboundArrivals', 'getSouthboundArrivals'])
   },
   methods: {
     ...mapActions(['fetchArrivalsFromApi'])

@@ -42,10 +42,10 @@ const store = new Vuex.Store({
     getAllStops () {
       return state.allStops
     },
-    getNorthboundStops() {
+    getNorthboundArrivals() {
       return state.arrivals.NB
     },
-    getSouthboundStops() {
+    getSouthboundArrivals() {
       return state.arrivals.SB
     },
     getCurrentStop () {
