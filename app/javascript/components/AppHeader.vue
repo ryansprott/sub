@@ -4,18 +4,13 @@
       <div class="tabs is-fullwidth">
         <ul>
           <li>
-            <router-link class="nav-item is-tab" to="/" exact>
-              Name
+            <router-link class="nav-item is-tab" to="/index" exact>
+              Bus
             </router-link>
           </li>
           <li>
-            <router-link class="nav-item is-tab" to="/something" exact>
-              Posts
-            </router-link>
-          </li>
-          <li>
-            <router-link class="nav-item is-tab" to="/stops" exact>
-              Stops
+            <router-link class="nav-item is-tab" to="/subway" exact>
+              Subway
             </router-link>
           </li>
         </ul>

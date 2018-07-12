@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Index from './components/Index.vue'
-import Stops from './components/Stops.vue'
-import Something from './components/Something.vue'
+import Subway from './components/Subway.vue'
+import Bus from './components/Bus.vue'
 
 Vue.use(VueRouter)
 
@@ -31,19 +30,14 @@ const router = new VueRouter({
     }
   },
   {
-    path: '/stops',
-    name: 'Stops',
-    component: Stops
+    path: '/subway',
+    name: 'Subway',
+    component: Subway
   },
   {
     path: '/index',
     name: 'Index',
-    component: Index
-  },
-  {
-    path: '/something',
-    name: 'Something',
-    component: Something
+    component: Bus
   }]
 })
 

@@ -4,10 +4,6 @@ import appService from './appService'
 Vue.use(Vuex)
 
 const state = {
-  user: {
-    firstname: 'place',
-    lastname: 'holder'
-  },
   optionSelected: '',
   apiCategories: ['1', '2', '3', '4', '5', '6', '11'],
   postsToShow: [],
@@ -19,17 +15,6 @@ const state = {
 const store = new Vuex.Store({
   state,
   getters: {
-    getFirstName() {
-      return state.user.firstname
-    },
-    getLastName() {
-      return state.user.lastname
-    },
-    getUpperCase () {
-      return state.user.firstname.toUpperCase() 
-        + ' ' 
-        + state.user.lastname.toUpperCase()
-    },
     getPostsToShow () {
       return state.postsToShow
     },
@@ -53,12 +38,6 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    setFirstName (state, payload) {
-      state.user.firstname = payload
-    },
-    setLastName (state, payload) {
-      state.user.lastname = payload
-    },
     updatePosts (state, payload) {
       state.postsToShow = payload
     },
@@ -76,15 +55,6 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    setName (context, payload) {
-      if (payload.name) {
-        if (payload.type == 'first') {
-          context.commit('setFirstName', payload.name)
-        } else if (payload.type == 'last') {
-          context.commit('setLastName', payload.name)
-        }
-      }
-    },
     fetchPostsFromApi (context, payload) {
       if (payload) {
         appService.getPosts(payload).then(data => {
