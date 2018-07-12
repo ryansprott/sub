@@ -1,7 +1,7 @@
 <template>
   <div>    
     <div class="select is-rounded is-large is-fullwidth">
-      <select :value="getCurrentStop" @change="fetchArrivalsFromApi($event.target.value)">
+      <select :value="getCurrentSubwayStop" @change="fetchSubwayArrivalsFromApi($event.target.value)">
         <option value="">---</option>
         <option v-for="(stop, index) in getAllSubwayStops" :value="stop[1]" v-bind:key="index">
           {{stop[2] + ' - ' + stop[3]}}
@@ -11,10 +11,10 @@
     <hr />
     <div class="columns">
       <div class="column">
-        <subway-arrival :arrivals="getNorthboundArrivals" direction="Northbound"></subway-arrival>
+        <subway-arrival :arrivals="getNorthboundSubwayArrivals" direction="Northbound"></subway-arrival>
       </div>
       <div class="column">
-        <subway-arrival :arrivals="getSouthboundArrivals" direction="Southbound"></subway-arrival>
+        <subway-arrival :arrivals="getSouthboundSubwayArrivals" direction="Southbound"></subway-arrival>
       </div>
     </div>
   </div>
@@ -33,15 +33,15 @@ export default {
     'subway-arrival': SubwayArrival
   },
   computed: {
-    ...mapGetters(['getAllSubwayStops', 'getCurrentStop', 'getNorthboundArrivals', 'getSouthboundArrivals'])
+    ...mapGetters(['getAllSubwayStops', 'getCurrentSubwayStop', 'getNorthboundSubwayArrivals', 'getSouthboundSubwayArrivals'])
   },
   methods: {
-    ...mapActions(['fetchArrivalsFromApi']),
+    ...mapActions(['fetchSubwayArrivalsFromApi']),
     populateSubwayStops() {
       this.$store.dispatch('fetchAllSubwayStopsFromApi')
     },
     refreshSubwayArrivals() {
-      this.$store.dispatch('fetchArrivalsFromApi', this.$store.state.currentStop)
+      this.$store.dispatch('fetchSubwayArrivalsFromApi', this.$store.state.currentSubwayStop)
     }
   },
   mounted() {

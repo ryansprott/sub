@@ -8,7 +8,7 @@ const state = {
   apiCategories: ['1', '2', '3', '4', '5', '6', '11'],
   postsToShow: [],
   allSubwayStops: [],
-  currentStop: 'B04',
+  currentSubwayStop: 'B04',
   arrivals: {}
 }
 
@@ -27,14 +27,14 @@ const store = new Vuex.Store({
     getAllSubwayStops () {
       return state.allSubwayStops
     },
-    getNorthboundArrivals() {
+    getNorthboundSubwayArrivals() {
       return state.arrivals.NB
     },
-    getSouthboundArrivals() {
+    getSouthboundSubwayArrivals() {
       return state.arrivals.SB
     },
-    getCurrentStop () {
-      return state.currentStop
+    getCurrentSubwayStop () {
+      return state.currentSubwayStop
     }
   },
   mutations: {
@@ -44,14 +44,14 @@ const store = new Vuex.Store({
     updateOptionSelected (state, payload) {
       state.optionSelected = payload
     },
-    updateStops (state, payload) {
+    updateSubwayStops (state, payload) {
       state.allSubwayStops = payload
     },
-    updateArrivals (state, payload) {
+    updateSubwayArrivals (state, payload) {
       state.arrivals = payload
     },
-    updateCurrentStop (state, payload) {
-      state.currentStop = payload
+    updateCurrentSubwayStop (state, payload) {
+      state.currentSubwayStop = payload
     }
   },
   actions: {
@@ -65,15 +65,15 @@ const store = new Vuex.Store({
     },
     fetchAllSubwayStopsFromApi (context, payload) {
       appService.getAllSubwayStops().then(data => {
-        context.commit('updateStops', data)
+        context.commit('updateSubwayStops', data)
       })
     },
-    fetchArrivalsFromApi(context, payload) {
+    fetchSubwayArrivalsFromApi(context, payload) {
       if (payload) {
         appService.getSubwayArrivals(payload).then(data => {
-          context.commit('updateArrivals', data)
+          context.commit('updateSubwayArrivals', data)
         })
-        context.commit('updateCurrentStop', payload)  
+        context.commit('updateCurrentSubwayStop', payload)  
       }
     }
   }

@@ -21,21 +21,22 @@ const appService = {
     })
   },
   getAllSubwayStops () {
-    return new Promise((resolve) => {
-      axios.get('/all_subway_stops')
-      .then(response => {
-        resolve(response.data)
-      })  
-    })    
+    return doAjax('/all_subway_stops')
   },
   getSubwayArrivals (stopId) {
-    return new Promise((resolve) => {
-      axios.get('/subway_arrivals/' + stopId)
-      .then(response => {
-        resolve(response.data)
-      })  
-    })    
+    return doAjax('/subway_arrivals/', stopId)
   }
+}
+
+const doAjax = (url, param = '') => {
+  return new Promise((resolve) => {
+    axios.get(url + param)
+    .then(response => {
+      resolve(response.data)
+    }).catch(err => {
+      console.error(err)
+    }) 
+  })
 }
 
 export default appService
