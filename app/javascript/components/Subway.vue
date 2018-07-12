@@ -2,6 +2,7 @@
   <div>    
     <div class="select is-rounded is-large is-fullwidth">
       <select :value="getCurrentStop" @change="fetchArrivalsFromApi($event.target.value)">
+        <option value="">---</option>
         <option v-for="(stop, index) in getAllStops" :value="stop[1]" v-bind:key="index">
           {{stop[2] + ' - ' + stop[3]}}
         </option>
@@ -23,6 +24,11 @@
 import { mapActions, mapGetters } from 'vuex'
 import SubwayArrival from './SubwayArrival.vue'
 export default {
+  data() {
+    return {
+      timer: ''
+    }
+  },
   components: {
     'subway-arrival': SubwayArrival
   },
@@ -30,13 +36,20 @@ export default {
     ...mapGetters(['getAllStops', 'getCurrentStop', 'getNorthboundArrivals', 'getSouthboundArrivals'])
   },
   methods: {
-    ...mapActions(['fetchArrivalsFromApi'])
+    ...mapActions(['fetchArrivalsFromApi']),
+    refreshArrivals() {
+      this.$store.dispatch('fetchArrivalsFromApi', this.$store.state.currentStop)
+    }
   },
   mounted() {
     if (this.$store.state.allStops.length < 1) {
       this.$store.dispatch('fetchAllStopsFromApi')
-      this.$store.dispatch('fetchArrivalsFromApi', this.$store.state.currentStop)
+      this.refreshArrivals()
     }    
+    this.timer = setInterval(() => { this.refreshArrivals() }, 30000)
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   }
 }
 </script>
