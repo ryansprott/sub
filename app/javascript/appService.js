@@ -1,8 +1,6 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
 
-//axios.defaults.baseURL = "https://api.fullstackweekly.com"
-
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config
@@ -22,17 +20,17 @@ const appService = {
       })  
     })
   },
-  getAllStops () {
+  getAllSubwayStops () {
     return new Promise((resolve) => {
-      axios.get('http://localhost:3000/all_stops')
+      axios.get('/all_subway_stops')
       .then(response => {
         resolve(response.data)
       })  
     })    
   },
-  getArrivals (stopId) {
+  getSubwayArrivals (stopId) {
     return new Promise((resolve) => {
-      axios.get('http://localhost:3000/stop_info/' + stopId)
+      axios.get('/subway_arrivals/' + stopId)
       .then(response => {
         resolve(response.data)
       })  

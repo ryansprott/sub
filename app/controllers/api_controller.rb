@@ -3,11 +3,11 @@ class ApiController < ApplicationController
   require 'google/transit/gtfs-realtime.pb'
   require 'net/http'
 
-  def all_stops
+  def all_subway_stops
     render json: Stop.all.pluck(:id, :gtfs_id, :line_name, :stop_name)
   end
 
-  def stop_info
+  def subway_arrivals
     nb      = {}
     sb      = {}
     stop_id = params[:id]

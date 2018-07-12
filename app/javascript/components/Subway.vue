@@ -3,7 +3,7 @@
     <div class="select is-rounded is-large is-fullwidth">
       <select :value="getCurrentStop" @change="fetchArrivalsFromApi($event.target.value)">
         <option value="">---</option>
-        <option v-for="(stop, index) in getAllStops" :value="stop[1]" v-bind:key="index">
+        <option v-for="(stop, index) in getAllSubwayStops" :value="stop[1]" v-bind:key="index">
           {{stop[2] + ' - ' + stop[3]}}
         </option>
       </select>
@@ -33,20 +33,23 @@ export default {
     'subway-arrival': SubwayArrival
   },
   computed: {
-    ...mapGetters(['getAllStops', 'getCurrentStop', 'getNorthboundArrivals', 'getSouthboundArrivals'])
+    ...mapGetters(['getAllSubwayStops', 'getCurrentStop', 'getNorthboundArrivals', 'getSouthboundArrivals'])
   },
   methods: {
     ...mapActions(['fetchArrivalsFromApi']),
-    refreshArrivals() {
+    populateSubwayStops() {
+      this.$store.dispatch('fetchAllSubwayStopsFromApi')
+    },
+    refreshSubwayArrivals() {
       this.$store.dispatch('fetchArrivalsFromApi', this.$store.state.currentStop)
     }
   },
   mounted() {
-    if (this.$store.state.allStops.length < 1) {
-      this.$store.dispatch('fetchAllStopsFromApi')
-      this.refreshArrivals()
+    if (this.$store.state.allSubwayStops.length < 1) {
+      this.populateSubwayStops()
+      this.refreshSubwayArrivals()
     }    
-    this.timer = setInterval(() => { this.refreshArrivals() }, 30000)
+    this.timer = setInterval(() => { this.refreshSubwayArrivals() }, 30000)
   },
   beforeDestroy() {
     clearInterval(this.timer)

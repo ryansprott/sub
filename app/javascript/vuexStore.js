@@ -7,7 +7,7 @@ const state = {
   optionSelected: '',
   apiCategories: ['1', '2', '3', '4', '5', '6', '11'],
   postsToShow: [],
-  allStops: [],
+  allSubwayStops: [],
   currentStop: 'B04',
   arrivals: {}
 }
@@ -24,8 +24,8 @@ const store = new Vuex.Store({
     getApiCategories () {
       return state.apiCategories
     },
-    getAllStops () {
-      return state.allStops
+    getAllSubwayStops () {
+      return state.allSubwayStops
     },
     getNorthboundArrivals() {
       return state.arrivals.NB
@@ -45,7 +45,7 @@ const store = new Vuex.Store({
       state.optionSelected = payload
     },
     updateStops (state, payload) {
-      state.allStops = payload
+      state.allSubwayStops = payload
     },
     updateArrivals (state, payload) {
       state.arrivals = payload
@@ -63,14 +63,14 @@ const store = new Vuex.Store({
         context.commit('updateOptionSelected', payload)  
       }
     },
-    fetchAllStopsFromApi (context, payload) {
-      appService.getAllStops().then(data => {
+    fetchAllSubwayStopsFromApi (context, payload) {
+      appService.getAllSubwayStops().then(data => {
         context.commit('updateStops', data)
       })
     },
     fetchArrivalsFromApi(context, payload) {
       if (payload) {
-        appService.getArrivals(payload).then(data => {
+        appService.getSubwayArrivals(payload).then(data => {
           context.commit('updateArrivals', data)
         })
         context.commit('updateCurrentStop', payload)  
