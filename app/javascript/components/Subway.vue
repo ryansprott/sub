@@ -7,8 +7,15 @@
         </option>
       </select>
     </div>
-    <subway-arrival :arrivals="getNorthboundArrivals" direction="Northbound"></subway-arrival>
-    <subway-arrival :arrivals="getSouthboundArrivals" direction="Southbound"></subway-arrival>
+    <hr />
+    <div class="columns">
+      <div class="column">
+        <subway-arrival :arrivals="getNorthboundArrivals" direction="Northbound"></subway-arrival>
+      </div>
+      <div class="column">
+        <subway-arrival :arrivals="getSouthboundArrivals" direction="Southbound"></subway-arrival>
+      </div>
+    </div>
   </div>
 </template>
 
