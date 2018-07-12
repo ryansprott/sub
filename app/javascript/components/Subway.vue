@@ -7,24 +7,18 @@
         </option>
       </select>
     </div>
-    <hr />
-    <h1 class="title is-3">Northbound</h1>
-    <div v-for="(stop, index) in getNorthboundArrivals" v-bind:key="index">
-      <h2 class="title is-5">{{index}}</h2>
-      {{stop}}
-    </div>
-    <hr />
-    <h1 class="title is-3">Southbound</h1>
-    <div v-for="(stop, index) in getSouthboundArrivals" v-bind:key="index">
-      <h2 class="title is-5">{{index}}</h2>
-      {{stop}}
-    </div>
+    <subway-arrival :arrivals="getNorthboundArrivals" direction="Northbound"></subway-arrival>
+    <subway-arrival :arrivals="getSouthboundArrivals" direction="Southbound"></subway-arrival>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import SubwayArrival from './SubwayArrival.vue'
 export default {
+  components: {
+    'subway-arrival': SubwayArrival
+  },
   computed: {
     ...mapGetters(['getAllStops', 'getCurrentStop', 'getNorthboundArrivals', 'getSouthboundArrivals'])
   },
@@ -34,6 +28,7 @@ export default {
   mounted() {
     if (this.$store.state.allStops.length < 1) {
       this.$store.dispatch('fetchAllStopsFromApi')
+      this.$store.dispatch('fetchArrivalsFromApi', this.$store.state.currentStop)
     }    
   }
 }

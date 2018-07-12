@@ -8,7 +8,7 @@ const state = {
   apiCategories: ['1', '2', '3', '4', '5', '6', '11'],
   postsToShow: [],
   allStops: [],
-  currentStop: 'R01',
+  currentStop: 'B04',
   arrivals: {}
 }
 
