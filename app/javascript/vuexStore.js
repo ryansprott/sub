@@ -9,7 +9,7 @@ const state = {
   postsToShow: [],
   allSubwayStops: [],
   currentSubwayStop: 'B04',
-  arrivals: {}
+  subwayArrivals: {}
 }
 
 const store = new Vuex.Store({
@@ -28,10 +28,10 @@ const store = new Vuex.Store({
       return state.allSubwayStops
     },
     getNorthboundSubwayArrivals() {
-      return state.arrivals.NB
+      return state.subwayArrivals.NB
     },
     getSouthboundSubwayArrivals() {
-      return state.arrivals.SB
+      return state.subwayArrivals.SB
     },
     getCurrentSubwayStop () {
       return state.currentSubwayStop
@@ -48,7 +48,7 @@ const store = new Vuex.Store({
       state.allSubwayStops = payload
     },
     updateSubwayArrivals (state, payload) {
-      state.arrivals = payload
+      state.subwayArrivals = payload
     },
     updateCurrentSubwayStop (state, payload) {
       state.currentSubwayStop = payload

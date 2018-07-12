@@ -11,7 +11,7 @@ class ApiController < ApplicationController
     nb      = {}
     sb      = {}
     stop_id = params[:id]
-    api_key = Rails.application.secrets.MTA_API_KEY
+    api_key = Rails.application.secrets.MTA_SUBWAY_API_KEY
     stop    = Stop.find_by(gtfs_id: stop_id)
     feed_id = feeds_by_route(stop.routes.first) unless stop.nil?
     data    = Net::HTTP.get(URI.parse("http://datamine.mta.info/mta_esi.php?key=#{api_key}&feed_id=#{feed_id}"))
