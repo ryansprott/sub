@@ -1,8 +1,12 @@
 <template>
   <div>
-    <h1 class="title is-3">{{direction}}</h1>
+    <h1 class="title is-3">
+      {{direction}}
+    </h1>
     <div v-for="(arrival, index) in arrivals" v-bind:key="index">
-      <h2 class="title is-5 box">{{index}}</h2>
+      <h2 class="title is-5 box">
+        {{index}}
+      </h2>
       <ul>
         <li v-for="(element, ndx) in arrival" v-bind:key="ndx">
           {{element}}
