@@ -1,21 +1,40 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 require 'open-uri'
-url = "http://web.mta.info/developers/data/nyct/subway/Stations.csv"
+require 'json'
 
-CSV.new(open(url), :headers => :first_row).each do |line|  
-  stop = Stop.create!(
+# subway
+subway_stop_url = "http://web.mta.info/developers/data/nyct/subway/Stations.csv"
+
+CSV.new(open(subway_stop_url), :headers => :first_row).each do |line|
+  subway_stop = SubwayStop.create!(
     gtfs_id: line["GTFS Stop ID"],
     line_name: line["Division"] + " " + line["Line"] + " Line",
     stop_name: line["Stop Name"],
-    routes: line["Daytime Routes"].split(' '),
-    lat: line["GTFS Latitude"],
-    lon: line["GTFS Longitude"]
+    routes: line["Daytime Routes"].split(' ')
   )
+end
+
+# bus
+key = Rails.application.secrets.MTA_BUS_API_KEY
+base_url = "http://bustime.mta.info/api/where"
+bus_stops = []
+
+bus_stop_result = JSON.parse(open("#{base_url}/stop-ids-for-agency/MTA.json?key=#{key}").read)
+
+bus_stop_result['data']['list'].each do |item|
+  bus_stops << item
+end
+
+bus_stops.each do |stop|
+  begin
+    bus_info_result = JSON.parse(open("#{base_url}/stop/#{stop}.json?key=#{key}").read)
+    bus_stop = BusStop.create!(
+      code: bus_info_result['data']['code'],
+      stop_id: bus_info_result['data']['id'],
+      name: bus_info_result['data']['name'],
+      direction: bus_info_result['data']['direction']
+    )
+  rescue => exception
+    p "ERROR for #{stop}: #{exception.to_s}"
+  end
 end

@@ -10,15 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711200807) do
+ActiveRecord::Schema.define(version: 20180713160333) do
 
-  create_table "stops", force: :cascade do |t|
+  create_table "bus_stops", force: :cascade do |t|
+    t.string "code"
+    t.string "stop_id"
+    t.string "name"
+    t.string "direction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subway_stops", force: :cascade do |t|
     t.string "gtfs_id"
     t.string "line_name"
     t.string "stop_name"
     t.string "routes"
-    t.string "lat"
-    t.string "lon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
