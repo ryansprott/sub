@@ -4,26 +4,17 @@ import appService from './appService'
 Vue.use(Vuex)
 
 const state = {
-  optionSelected: '',
-  apiCategories: ['1', '2', '3', '4', '5', '6', '11'],
-  postsToShow: [],
   allSubwayStops: [],
   currentSubwayStop: 'B04',
-  subwayArrivals: {}
+  subwayArrivals: {},
+  allBusStops: [],
+  currentBusStop: '550685',
+  busArrivals: {}
 }
 
 const store = new Vuex.Store({
   state,
   getters: {
-    getPostsToShow () {
-      return state.postsToShow
-    },
-    getOptionSelected () {
-      return state.optionSelected
-    },
-    getApiCategories () {
-      return state.apiCategories
-    },
     getAllSubwayStops () {
       return state.allSubwayStops
     },
@@ -35,15 +26,18 @@ const store = new Vuex.Store({
     },
     getCurrentSubwayStop () {
       return state.currentSubwayStop
+    },
+    getAllBusStops () {
+      return state.allBusStops
+    },
+    getBusArrivals() {
+      return state.busArrivals
+    },
+    getCurrentBusStop () {
+      return state.currentBusStop
     }
   },
   mutations: {
-    updatePosts (state, payload) {
-      state.postsToShow = payload
-    },
-    updateOptionSelected (state, payload) {
-      state.optionSelected = payload
-    },
     updateSubwayStops (state, payload) {
       state.allSubwayStops = payload
     },
@@ -52,17 +46,18 @@ const store = new Vuex.Store({
     },
     updateCurrentSubwayStop (state, payload) {
       state.currentSubwayStop = payload
+    },
+    updateBusStops (state, payload) {
+      state.allBusStops = payload
+    },
+    updateBusArrivals (state, payload) {
+      state.busArrivals = payload
+    },
+    updateCurrentBusStop (state, payload) {
+      state.currentBusStop = payload
     }
   },
   actions: {
-    fetchPostsFromApi (context, payload) {
-      if (payload) {
-        appService.getPosts(payload).then(data => {
-          context.commit('updatePosts', data)
-        })
-        context.commit('updateOptionSelected', payload)  
-      }
-    },
     fetchAllSubwayStopsFromApi (context, payload) {
       appService.getAllSubwayStops().then(data => {
         context.commit('updateSubwayStops', data)
@@ -73,7 +68,20 @@ const store = new Vuex.Store({
         appService.getSubwayArrivals(payload).then(data => {
           context.commit('updateSubwayArrivals', data)
         })
-        context.commit('updateCurrentSubwayStop', payload)  
+        context.commit('updateCurrentSubwayStop', payload)
+      }
+    },
+    fetchAllBusStopsFromApi (context, payload) {
+      appService.getAllBusStops().then(data => {
+        context.commit('updateBusStops', data)
+      })
+    },
+    fetchBusArrivalsFromApi(context, payload) {
+      if (payload) {
+        appService.getBusArrivals(payload).then(data => {
+          context.commit('updateBusArrivals', data)
+        })
+        context.commit('updateCurrentBusStop', payload)
       }
     }
   }

@@ -17,7 +17,7 @@ const appService = {
       axios.get(`https://api.fullstackweekly.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=6`)
       .then(response => {
         resolve(response.data)
-      })  
+      })
     })
   },
   getAllSubwayStops () {
@@ -25,6 +25,12 @@ const appService = {
   },
   getSubwayArrivals (stopId) {
     return doAjax('/subway_arrivals/', stopId)
+  },
+  getAllBusStops () {
+    return doAjax('/all_bus_stops')
+  },
+  getBusArrivals (stopId) {
+    return doAjax('/bus_arrivals/', stopId)
   }
 }
 
@@ -35,7 +41,7 @@ const doAjax = (url, param = '') => {
       resolve(response.data)
     }).catch(err => {
       console.error(err)
-    }) 
+    })
   })
 }
 

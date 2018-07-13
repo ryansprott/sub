@@ -4,7 +4,19 @@ class ApiController < ApplicationController
   require 'net/http'
 
   def all_subway_stops
-    render json: Stop.all.pluck(:id, :gtfs_id, :line_name, :stop_name)
+    render json: SubwayStop.all.pluck(:id, :gtfs_id, :line_name, :stop_name)
+  end
+
+  def all_bus_stops
+    render json: BusStop.all.pluck(:id, :code, :stop_id, :name, :direction)
+  end
+
+  def bus_arrivals
+    api_key = Rails.application.secrets.MTA_BUS_API_KEY
+    stop_id = params[:id]
+    url     = "http://bustime.mta.info/api/siri/stop-monitoring.json?key=#{api_key}&MonitoringRef=#{stop_id}"
+    data    = JSON.parse(Net::HTTP.get(URI.parse(url)))
+    render json: JSON.parse(data['Siri']['ServiceDelivery']['StopMonitoringDelivery'][0]['MonitoredStopVisit'].to_json)
   end
 
   def subway_arrivals
@@ -12,7 +24,7 @@ class ApiController < ApplicationController
     sb      = {}
     stop_id = params[:id]
     api_key = Rails.application.secrets.MTA_SUBWAY_API_KEY
-    stop    = Stop.find_by(gtfs_id: stop_id)
+    stop    = SubwayStop.find_by(gtfs_id: stop_id)
     feed_id = feeds_by_route(stop.routes.first) unless stop.nil?
     data    = Net::HTTP.get(URI.parse("http://datamine.mta.info/mta_esi.php?key=#{api_key}&feed_id=#{feed_id}"))
     feed    = Transit_realtime::FeedMessage.decode(data)
@@ -20,7 +32,7 @@ class ApiController < ApplicationController
       if entity.field?(:trip_update)
         entity.trip_update.stop_time_update.each do |item|
           route_id = entity.trip_update.trip.route_id
-          mins_away = item.arrival.nil? ? 0 : (item.arrival.time - DateTime.now.to_time.to_i) / 60          
+          mins_away = item.arrival.nil? ? 0 : (item.arrival.time - DateTime.now.to_time.to_i) / 60
           if item.stop_id == stop_id + 'N'
             nb[route_id] = [] unless nb.has_key? route_id
             nb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && nb[route_id].length < 4
@@ -36,7 +48,7 @@ class ApiController < ApplicationController
     sb = Hash[sb.sort_by { |key, value| key }]
     # then sort the arrival times
     nb.each { |key, value| value = natural_sort(value) }
-    sb.each { |key, value| value = natural_sort(value) }    
+    sb.each { |key, value| value = natural_sort(value) }
     render json: JSON.parse({"NB" => nb, "SB" => sb}.to_json)
   end
 
@@ -62,7 +74,7 @@ class ApiController < ApplicationController
       "31" => ['G'],
       "36" => ['J', 'Z'],
       "51" => ['7', '7X']
-    }  
+    }
     feeds.each { |key, val|
       return key if val.include? route
     }
