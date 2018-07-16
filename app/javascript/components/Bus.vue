@@ -43,8 +43,8 @@ export default {
   mounted() {
     if (this.$store.state.allBusStops.length < 1) {
       this.populateBusStops()
-      this.refreshBusArrivals()
     }
+    this.refreshBusArrivals()
     this.timer = setInterval(() => { this.refreshBusArrivals() }, 30000)
   },
   beforeDestroy() {

@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div>
     <div class="select is-rounded is-large is-fullwidth">
       <select :value="getCurrentSubwayStop" @change="fetchSubwayArrivalsFromApi($event.target.value)">
         <option value="">---</option>
@@ -47,8 +47,8 @@ export default {
   mounted() {
     if (this.$store.state.allSubwayStops.length < 1) {
       this.populateSubwayStops()
-      this.refreshSubwayArrivals()
-    }    
+    }
+    this.refreshSubwayArrivals()
     this.timer = setInterval(() => { this.refreshSubwayArrivals() }, 30000)
   },
   beforeDestroy() {
