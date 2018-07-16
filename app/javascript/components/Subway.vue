@@ -4,10 +4,16 @@
     <hr />
     <div class="columns">
       <div class="column">
-        <subway-arrival :arrivals="getNorthboundSubwayArrivals" direction="Northbound"></subway-arrival>
+        <subway-arrival
+          :arrivals="getNorthboundSubwayArrivals"
+          direction="Northbound">
+        </subway-arrival>
       </div>
       <div class="column">
-        <subway-arrival :arrivals="getSouthboundSubwayArrivals" direction="Southbound"></subway-arrival>
+        <subway-arrival
+          :arrivals="getSouthboundSubwayArrivals"
+          direction="Southbound">
+        </subway-arrival>
       </div>
     </div>
   </div>

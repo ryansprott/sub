@@ -2,7 +2,9 @@
   <div>
     <bus-select></bus-select>
     <hr />
-    <bus-arrival :arrivals='getBusArrivals'></bus-arrival>
+    <bus-arrival
+      :arrivals='getBusArrivals'>
+    </bus-arrival>
   </div>
 </template>
 
