@@ -10,15 +10,15 @@
       <ul>
         <li v-for="(element, ndx) in arrival" v-bind:key="ndx">
           {{element}}
-        </li>      
-      </ul>      
-    </div>    
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['arrivals', 'direction']  
+  props: ['arrivals', 'direction']
 }
 </script>
 
