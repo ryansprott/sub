@@ -1,24 +1,15 @@
 <template>
-  <div class="columns">
-    <div class="column">
-      <div class="select is-rounded is-large is-fullwidth" v-cloak>
-        <select :value="getCurrentBusStop" @change="fetchBusArrivalsFromApi($event.target.value)">
-          <option value="">---</option>
-          <option v-for="stop in getAllBusStops" :value="stop[1]" v-bind:key="stop[0]">
-            {{stop[1] + ' - ' + stop[3] + ' - ' + stop[4]}}
-          </option>
-        </select>
-      </div>
-      <div class="column is-fullwidth">
-        <bus-arrival :arrivals='getBusArrivals'></bus-arrival>
-      </div>
-    </div>
+  <div>
+    <bus-select></bus-select>
+    <hr />
+    <bus-arrival :arrivals='getBusArrivals'></bus-arrival>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import BusArrival from './BusArrival.vue'
+import BusSelect from './BusSelect.vue'
 export default {
   data() {
     return {
@@ -26,10 +17,10 @@ export default {
     }
   },
   components: {
-    'bus-arrival': BusArrival
+    'bus-arrival': BusArrival,
+    'bus-select': BusSelect
   },
   methods: {
-    ...mapActions(['fetchBusArrivalsFromApi']),
     populateBusStops() {
       this.$store.dispatch('fetchAllBusStopsFromApi')
     },
@@ -38,7 +29,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAllBusStops', 'getCurrentBusStop', 'getBusArrivals'])
+    ...mapGetters(['getBusArrivals'])
   },
   mounted() {
     if (this.$store.state.allBusStops.length < 1) {

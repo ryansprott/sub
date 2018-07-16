@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="select is-rounded is-large is-fullwidth">
-      <select :value="getCurrentSubwayStop" @change="fetchSubwayArrivalsFromApi($event.target.value)">
-        <option value="">---</option>
-        <option v-for="(stop, index) in getAllSubwayStops" :value="stop[1]" v-bind:key="index">
-          {{stop[2] + ' - ' + stop[3]}}
-        </option>
-      </select>
-    </div>
+    <subway-select></subway-select>
     <hr />
     <div class="columns">
       <div class="column">
@@ -23,6 +16,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import SubwayArrival from './SubwayArrival.vue'
+import SubwaySelect from './SubwaySelect.vue'
 export default {
   data() {
     return {
@@ -30,13 +24,13 @@ export default {
     }
   },
   components: {
-    'subway-arrival': SubwayArrival
+    'subway-arrival': SubwayArrival,
+    'subway-select': SubwaySelect
   },
   computed: {
-    ...mapGetters(['getAllSubwayStops', 'getCurrentSubwayStop', 'getNorthboundSubwayArrivals', 'getSouthboundSubwayArrivals'])
+    ...mapGetters(['getNorthboundSubwayArrivals', 'getSouthboundSubwayArrivals'])
   },
   methods: {
-    ...mapActions(['fetchSubwayArrivalsFromApi']),
     populateSubwayStops() {
       this.$store.dispatch('fetchAllSubwayStopsFromApi')
     },
