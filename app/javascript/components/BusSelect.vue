@@ -1,8 +1,8 @@
 <template>
   <div class="select is-rounded is-large is-fullwidth" v-cloak>
-    <select :value="getCurrentBusStop" @change="fetchBusArrivalsFromApi($event.target.value)">
+    <select @change="fetchBusArrivalsFromApi($event.target.value)">
       <option value="">---</option>
-      <option v-for="stop in getAllBusStops" :value="stop[1]" v-bind:key="stop[0]">
+      <option v-for="stop in getAllBusStops" :value="stop[1]" :key="stop[0]" :selected="stop[1] == getCurrentBusStop">
         {{stop[1] + ' - ' + stop[3] + ' - ' + stop[4]}}
       </option>
     </select>

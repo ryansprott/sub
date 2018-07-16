@@ -1,8 +1,8 @@
 <template>
   <div class="select is-rounded is-large is-fullwidth">
-    <select :value="getCurrentSubwayStop" @change="fetchSubwayArrivalsFromApi($event.target.value)">
+    <select @change="fetchSubwayArrivalsFromApi($event.target.value)">
       <option value="">---</option>
-      <option v-for="(stop, index) in getAllSubwayStops" :value="stop[1]" :key="index">
+      <option v-for="(stop, index) in getAllSubwayStops" :value="stop[1]" :key="index" :selected="stop[1] == getCurrentSubwayStop">
         {{stop[2] + ' - ' + stop[3]}}
       </option>
     </select>
