@@ -22,6 +22,9 @@ export default {
     'bus-arrival': BusArrival,
     'bus-select': BusSelect
   },
+  computed: {
+    ...mapGetters(['getBusArrivals'])
+  },
   methods: {
     populateBusStops() {
       this.$store.dispatch('fetchAllBusStopsFromApi')
@@ -29,9 +32,6 @@ export default {
     refreshBusArrivals() {
       this.$store.dispatch('fetchBusArrivalsFromApi', this.$store.state.currentBusStop)
     }
-  },
-  computed: {
-    ...mapGetters(['getBusArrivals'])
   },
   mounted() {
     if (this.$store.state.allBusStops.length < 1) {

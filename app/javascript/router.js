@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Subway from './components/Subway.vue'
-import Bus from './components/Bus.vue'
+import Subway from './components/subway/Subway.vue'
+import Bus from './components/bus/Bus.vue'
 
 Vue.use(VueRouter)
 
@@ -10,8 +10,8 @@ const router = new VueRouter({
   linkActiveClass: 'is-active',
   routes: [
   {
-    path: '/', 
-    name: 'Redirect', 
+    path: '/',
+    name: 'Redirect',
     redirect: (to) => {
       if (to.query.redirect) {
         // This will clear the ?redirect=<path> from the end URL
