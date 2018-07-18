@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="arrival in arrivals" v-bind:key="arrival.id">
+      <tr v-for="(arrival, index) in arrivals" :key="index">
         <td><b>{{arrival.MonitoredVehicleJourney.PublishedLineName}}</b></td>
         <td>{{arrival.MonitoredVehicleJourney.DestinationName}}</td>
         <td>{{arrival.MonitoredVehicleJourney.MonitoredCall.Extensions.Distances.PresentableDistance}}</td>

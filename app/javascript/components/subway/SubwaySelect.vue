@@ -3,10 +3,10 @@
     <select @change="fetchSubwayArrivalsFromApi($event.target.value)">
       <option value="">---</option>
       <option v-for="(stop, index) in getAllSubwayStops"
-        :value="stop[1]"
+        :value="stop[0]"
         :key="index"
-        :selected="stop[1] == getCurrentSubwayStop">
-          {{`${stop[2]} - ${stop[3]}`}}
+        :selected="stop[0] == getCurrentSubwayStop">
+          {{`${stop[1]} - ${stop[2]}`}}
       </option>
     </select>
   </div>

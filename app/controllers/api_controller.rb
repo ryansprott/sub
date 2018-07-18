@@ -4,11 +4,11 @@ class ApiController < ApplicationController
   require 'net/http'
 
   def all_subway_stops
-    render json: SubwayStop.all.pluck(:id, :gtfs_id, :line_name, :stop_name)
+    render json: SubwayStop.all.pluck(:gtfs_id, :line_name, :stop_name)
   end
 
   def all_bus_stops
-    render json: BusStop.all.pluck(:id, :code, :stop_id, :name, :direction)
+    render json: BusStop.all.pluck(:id, :code, :name, :direction)
   end
 
   def bus_arrivals

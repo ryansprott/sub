@@ -6,7 +6,7 @@
         :value="stop[1]"
         :key="stop[0]"
         :selected="stop[1] == getCurrentBusStop">
-          {{`${stop[1]} - ${stop[3]} - ${stop[4]}`}}
+          {{`${stop[1]} - ${stop[2]} - ${stop[3]}`}}
       </option>
     </select>
   </div>
