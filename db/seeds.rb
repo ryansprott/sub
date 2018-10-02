@@ -12,6 +12,7 @@ CSV.new(open(subway_stop_url), :headers => :first_row).each do |line|
     stop_name: line["Stop Name"],
     routes: line["Daytime Routes"].split(' ')
   )
+  puts "Created subway stop #{subway_stop.line_name } #{subway_stop.stop_name}"
 end
 
 # bus
@@ -34,6 +35,7 @@ bus_stops.each do |stop|
       name: bus_info_result['data']['name'],
       direction: bus_info_result['data']['direction']
     )
+    puts "Created bus stop #{bus_stop.name}"
   rescue => exception
     p "ERROR for #{stop}: #{exception.to_s}"
   end
