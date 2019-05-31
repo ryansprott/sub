@@ -1,24 +1,19 @@
-# README
+# nyc-bus-and-train 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Displays real-time information on NYC buses and trains.  Rails backend with Vue frontend.
 
-Things you may want to cover:
+Requires a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and an [MTA Bus Time API key](http://bustime.mta.info/wiki/Developers/Index) See `config/secrets.yml.example`.
 
-* Ruby version
+## Installation
 
-* System dependencies
+```$sh
+    bundle
+    yarn install
+    cp config/database.yml.example config/database.yml
+    rake db:migrate RAILS_ENV=development
+    rake db:seed
+    rails s & 
+    ./bin/webpack-dev-server
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Please note that seeding the database will take some time.
