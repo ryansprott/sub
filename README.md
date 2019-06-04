@@ -10,6 +10,8 @@ Requires a [Google Maps API key](https://developers.google.com/maps/documentatio
     bundle
     yarn install
     cp config/database.yml.example config/database.yml
+    cp config/secrets.yml.example config/secrets.yml
+    # make sure to add your API keys to secrets.yml
     rake db:migrate RAILS_ENV=development
     rake db:seed
     rails s & 
