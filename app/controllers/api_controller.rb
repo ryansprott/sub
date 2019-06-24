@@ -25,20 +25,24 @@ class ApiController < ApplicationController
     stop_id = params[:id]
     api_key = Rails.application.secrets.MTA_SUBWAY_API_KEY
     stop    = SubwayStop.find_by(gtfs_id: stop_id)
-    feed_id = feeds_by_route(stop.routes.first) unless stop.nil?
-    data    = Net::HTTP.get(URI.parse("http://datamine.mta.info/mta_esi.php?key=#{api_key}&feed_id=#{feed_id}"))
-    feed    = Transit_realtime::FeedMessage.decode(data)
-    for entity in feed.entity do
-      if entity.field?(:trip_update)
-        entity.trip_update.stop_time_update.each do |item|
-          route_id = entity.trip_update.trip.route_id
-          mins_away = item.arrival.nil? ? 0 : (item.arrival.time - DateTime.now.to_time.to_i) / 60
-          if item.stop_id == stop_id + 'N'
-            nb[route_id] = [] unless nb.has_key? route_id
-            nb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && nb[route_id].length < 4
-          elsif item.stop_id == stop_id + 'S'
-            sb[route_id] = [] unless sb.has_key? route_id
-            sb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && sb[route_id].length < 4
+    unless stop.nil?
+      for route in stop.routes do
+        feed_id = feeds_by_route(route)
+        data    = Net::HTTP.get(URI.parse("http://datamine.mta.info/mta_esi.php?key=#{api_key}&feed_id=#{feed_id}"))
+        feed    = Transit_realtime::FeedMessage.decode(data)
+        for entity in feed.entity do
+          if entity.field?(:trip_update)
+            entity.trip_update.stop_time_update.each do |item|
+              route_id = entity.trip_update.trip.route_id
+              mins_away = item.arrival.nil? ? 0 : (item.arrival.time - DateTime.now.to_time.to_i) / 60
+              if item.stop_id == stop_id + 'N'
+                nb[route_id] = [] unless nb.has_key? route_id
+                nb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && nb[route_id].length < 4
+              elsif item.stop_id == stop_id + 'S'
+                sb[route_id] = [] unless sb.has_key? route_id
+                sb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && sb[route_id].length < 4
+              end
+            end
           end
         end
       end
