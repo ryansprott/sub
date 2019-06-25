@@ -2,6 +2,23 @@ require 'csv'
 require 'open-uri'
 require 'json'
 
+# equipment
+
+equipment_url = 'http://advisory.mtanyct.info/eedevwebsvc/allequipments.aspx'
+hsh = Hash.from_xml(open(equipment_url))
+hsh['NYCEquipments']['equipment'].each do |item|
+  equipment = Equipment.create!(
+    ada: item['ADA'],
+    borough: item['borough'],
+    equipment_number: item['equipmentno'],
+    equipment_type: item['equipmenttype'],
+    serving: item['serving'],
+    station: item['station'],
+    train_number: item['trainno']
+  )
+  puts "Created equipment serving #{equipment.serving} at #{equipment.station}"
+end
+
 # subway
 subway_stop_url = "http://web.mta.info/developers/data/nyct/subway/Stations.csv"
 

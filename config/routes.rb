@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   get '/all_subway_stops' => 'api#all_subway_stops'
   get '/bus_arrivals/:id' => 'api#bus_arrivals'
   get '/all_bus_stops' => 'api#all_bus_stops'
+  get '/service_status' => 'api#service_status'
+  get '/equipment_status' => 'api#equipment_status'
+  get '/all_equipment' => 'api#all_equipment'
   match "/*path", to: redirect("/?redirect=%{path}"), via: :all
 end

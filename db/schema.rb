@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_13_160333) do
+ActiveRecord::Schema.define(version: 2019_06_25_184148) do
 
   create_table "bus_stops", force: :cascade do |t|
     t.string "code"
     t.string "stop_id"
     t.string "name"
     t.string "direction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "equipment", force: :cascade do |t|
+    t.string "ada"
+    t.string "borough"
+    t.string "equipment_number"
+    t.string "equipment_type"
+    t.string "serving"
+    t.string "station"
+    t.string "train_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -3,12 +3,43 @@ class ApiController < ApplicationController
   require 'google/transit/gtfs-realtime.pb'
   require 'net/http'
 
+  def all_equipment
+    render json: Equipment.all
+  end
+
   def all_subway_stops
     render json: SubwayStop.all.pluck(:gtfs_id, :line_name, :stop_name)
   end
 
   def all_bus_stops
     render json: BusStop.all.pluck(:id, :code, :name, :direction)
+  end
+
+  def service_status
+    data = Net::HTTP.get(URI.parse('http://web.mta.info/status/ServiceStatusSubway.xml'))
+    hsh  = Hash.from_xml(data)
+    rsp  = hsh['Siri']['ServiceDelivery']['SituationExchangeDelivery']['Situations']['PtSituationElement']
+    out  = []
+    rsp.each do |item|
+      out.push({
+        affects: item['Affects']['VehicleJourneys']['AffectedVehicleJourney'],
+        consequences: item['Consequences'],
+        long_description: item['LongDescription'],
+        planned: item['Planned'],
+        priority: item['MessagePriority'],
+        start: item['PublicationWindow']['StartTime'],
+        end: item['PublicationWindow']['EndTime'],
+        reason: item['ReasonName'],
+        summary: item['Summary']
+      })
+    end
+    render json: JSON.parse(out.to_json)
+  end
+
+  def equipment_status
+    data = Net::HTTP.get(URI.parse('http://web.mta.info/developers/data/nyct/nyct_ene.xml'))
+    hsh  = Hash.from_xml(data)
+    render json: JSON.parse(hsh['NYCOutages']['outage'].to_json)
   end
 
   def bus_arrivals
