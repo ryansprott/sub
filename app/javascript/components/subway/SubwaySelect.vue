@@ -1,25 +1,32 @@
 <template>
-  <div class="select is-rounded is-large is-fullwidth">
-    <select @change="fetchSubwayArrivalsFromApi($event.target.value)">
-      <option value="">---</option>
-      <option v-for="(stop, index) in getAllSubwayStops"
-        :value="stop[0]"
-        :key="index"
-        :selected="stop[0] == getCurrentSubwayStop">
-          {{`${stop[1]} - ${stop[2]}`}}
-      </option>
-    </select>
-  </div>
+  <b-autocomplete rounded
+    v-model="userInput"
+    field="label"
+    size="is-large"
+    :open-on-focus="true"
+    :data="filterStops()"
+    @select="updateCurrent($event)" />
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['getAllSubwayStops', 'getCurrentSubwayStop'])
+    userInput: {
+      get() { return this.$store.state.userInputSubway },
+      set(value) { this.$store.state.userInputSubway = value }
+    },
   },
   methods: {
-    ...mapActions(['fetchSubwayArrivalsFromApi'])
-  }
+    updateCurrent(e) {
+      if (e && e.value) {
+        this.$store.dispatch('fetchSubwayArrivalsFromApi', e.value)
+      }
+    },
+    filterStops() {
+      return this.$store.getters.getAllSubwayStops.filter(option => {
+        return option.label.toLowerCase().indexOf(this.$store.state.userInputSubway.toLowerCase()) >= 0
+      })
+    },
+  },
 }
 </script>

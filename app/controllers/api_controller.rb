@@ -8,11 +8,27 @@ class ApiController < ApplicationController
   end
 
   def all_subway_stops
-    render json: SubwayStop.all.sort_by{|s| s[:line_name]}.pluck(:gtfs_id, :line_name, :stop_name).uniq
+    out   = []
+    stops = SubwayStop.all.sort_by{|s| s[:gtfs_id]}.pluck(:gtfs_id, :line_name, :stop_name).uniq
+    stops.each do |stop|
+      out.push({
+        label: "#{stop[1]} - #{stop[2]}",
+        value: stop[0]
+      })
+    end
+    render json: out
   end
 
   def all_bus_stops
-    render json: BusStop.all.sort_by{|s| s[:code]}.pluck(:id, :code, :name, :direction).uniq
+    out = []
+    stops = BusStop.all.sort_by{|s| s[:code]}.pluck(:code, :name, :direction).uniq
+    stops.each do |stop|
+      out.push({
+        label: "#{stop[0]} - #{stop[1]} - #{stop[2]}",
+        value: stop[0]
+      })
+    end
+    render json: out
   end
 
   def service_status

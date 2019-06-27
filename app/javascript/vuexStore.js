@@ -4,9 +4,11 @@ import appService from './appService'
 Vue.use(Vuex)
 
 const state = {
+  userInputSubway: 'IND 63rd St Line - 21 St - Queensbridge',
   allSubwayStops: [],
   currentSubwayStop: 'B04',
   subwayArrivals: {},
+  userInputBus: '550685 - 21 ST/BROADWAY - SW',
   allBusStops: [],
   currentBusStop: '550685',
   busArrivals: {}
