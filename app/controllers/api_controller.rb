@@ -55,8 +55,21 @@ class ApiController < ApplicationController
   def equipment_status
     data = Net::HTTP.get(URI.parse('http://web.mta.info/developers/data/nyct/nyct_ene.xml'))
     hsh  = Hash.from_xml(data)
-    out  = hsh['NYCOutages']['outage'].sort_by{|e| [e['borough'], e['station']]}
-    render json: JSON.parse(out.to_json)
+    resp = {}
+    hsh['NYCOutages']['outage'].each do |item|
+      resp[item['borough']] = [] unless resp.has_key? item['borough']
+      resp[item['borough']] << {
+        station: item['station'],
+        equipment_type: item['equipmenttype'],
+        outage_end: item['estimatedreturntoservice'],
+        outage_start: item['outagedate'],
+        reason: item['reason'],
+        serving: item['serving'],
+        station: item['station'],
+        trains: item['trainno'].split('/')
+      }
+    end
+    render json: JSON.parse(resp.to_json)
   end
 
   def bus_arrivals

@@ -1,7 +1,7 @@
 <template>
   <nav class="nav has-shadow">
     <div class="container">
-      <div class="tabs is-fullwidth">
+      <div class="tabs is-fullwidth is-toggle is-boxed">
         <ul>
           <li>
             <router-link class="nav-item is-tab" to="/index" exact>
