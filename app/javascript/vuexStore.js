@@ -4,6 +4,7 @@ import appService from './appService'
 Vue.use(Vuex)
 
 const state = {
+  equipmentStatus: [],
   userInputSubway: 'IND 63rd St Line - 21 St - Queensbridge',
   allSubwayStops: [],
   currentSubwayStop: 'B04',
@@ -17,6 +18,9 @@ const state = {
 const store = new Vuex.Store({
   state,
   getters: {
+    getEquipmentStatus () {
+      return state.equipmentStatus
+    },
     getAllSubwayStops () {
       return state.allSubwayStops
     },
@@ -40,6 +44,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    updateEquipmentStatus (state, payload) {
+      state.equipmentStatus = payload
+    },
     updateSubwayStops (state, payload) {
       state.allSubwayStops = payload
     },
@@ -60,6 +67,11 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    fetchEquipmentStatusFromApi (context, payload) {
+      appService.getEquipmentStatus().then(data => {
+        context.commit('updateEquipmentStatus', data)
+      })
+    },
     fetchAllSubwayStopsFromApi (context, payload) {
       appService.getAllSubwayStops().then(data => {
         context.commit('updateSubwayStops', data)

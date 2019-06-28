@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Subway from './components/subway/Subway.vue'
 import Bus from './components/bus/Bus.vue'
+import Equipment from './components/equipment/Equipment.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const router = new VueRouter({
         }
       }
     }
+  },
+  {
+    path: '/equipment',
+    name: 'Equipment',
+    component: Equipment
   },
   {
     path: '/subway',
