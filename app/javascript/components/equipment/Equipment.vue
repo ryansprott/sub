@@ -66,9 +66,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
   .bullet {
-    color: white;
     border-radius: 6em;
     min-width: 1.5em;
     text-align: center;
@@ -77,35 +76,53 @@ export default {
   }
 
   .train-1, .train-2, .train-3 {
-    background: red;
+    background: #EE352E;
+    color: white;
   }
 
   .train-4, .train-5, .train-6 {
-    background: green;
+    background: #00933C;
+    color: white;
   }
 
   .train-7 {
-    background: purple;
+    background: #B933AD;
+    color: white;
   }
 
   .train-A, .train-C, .train-E {
-    background: blue;
+    background: #0039A6;
+    color: white;
   }
 
   .train-B, .train-D, .train-F, .train-M {
-    background: orange;
+    background: #FF6319;
+    color: white;
+  }
+
+  .train-L {
+    background: #A7A9AC;
+    color: white;
   }
 
   .train-N, .train-Q, .train-R, .train-W {
-    background: yellow;
+    background: #FCCC0A;
+    color: black;
   }
 
   .train-G {
-    background: lightgreen;
+    background: #6CBE45;
+    color: white;
+  }
+
+  .train-S {
+    background: #808183;
+    color: white;
   }
 
   .train-J, .train-Z {
-    background: brown;
+    background: #996633;
+    color: white;
   }
 
 </style>
