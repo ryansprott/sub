@@ -3,6 +3,7 @@
     <div v-for="(item, ndx) in getEquipmentStatus" :key="ndx" class="content">
       <h1>{{boroughHelper(ndx)}}</h1>
       <div v-for="(status, i) in item" :key="i">
+        <hr />
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">{{status.station}}</p>

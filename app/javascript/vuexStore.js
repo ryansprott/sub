@@ -6,13 +6,13 @@ Vue.use(Vuex)
 const state = {
   equipmentStatus: [],
   serviceStatus: [],
-  userInputSubway: 'IND 63rd St Line - 21 St - Queensbridge',
+  userInputSubway: 'IND 8th Av - Fulton St Line - 86 St',
   allSubwayStops: [],
-  currentSubwayStop: 'B04',
+  currentSubwayStop: 'A20',
   subwayArrivals: {},
-  userInputBus: '550685 - 21 ST/BROADWAY - SW',
+  userInputBus: '401898 - W 86 ST/COLUMBUS AV - SE',
   allBusStops: [],
-  currentBusStop: '550685',
+  currentBusStop: '401898',
   busArrivals: {}
 }
 
