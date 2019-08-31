@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 const state = {
   equipmentStatus: [],
+  serviceStatus: [],
   userInputSubway: 'IND 63rd St Line - 21 St - Queensbridge',
   allSubwayStops: [],
   currentSubwayStop: 'B04',
@@ -20,6 +21,9 @@ const store = new Vuex.Store({
   getters: {
     getEquipmentStatus () {
       return state.equipmentStatus
+    },
+    getServiceStatus () {
+      return state.serviceStatus
     },
     getAllSubwayStops () {
       return state.allSubwayStops
@@ -44,6 +48,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    updateServiceStatus (state, payload) {
+      state.serviceStatus = payload
+    },
     updateEquipmentStatus (state, payload) {
       state.equipmentStatus = payload
     },
@@ -70,6 +77,11 @@ const store = new Vuex.Store({
     fetchEquipmentStatusFromApi (context, payload) {
       appService.getEquipmentStatus().then(data => {
         context.commit('updateEquipmentStatus', data)
+      })
+    },
+    fetchServiceStatusFromApi (context, payload) {
+      appService.getServiceStatus().then(data => {
+        context.commit('updateServiceStatus', data)
       })
     },
     fetchAllSubwayStopsFromApi (context, payload) {

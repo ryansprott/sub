@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Subway from './components/subway/Subway.vue'
 import Bus from './components/bus/Bus.vue'
 import Equipment from './components/equipment/Equipment.vue'
+import Service from './components/service/Service.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const router = new VueRouter({
     path: '/equipment',
     name: 'Equipment',
     component: Equipment
+  },
+  {
+    path: '/service',
+    name: 'Service',
+    component: Service
   },
   {
     path: '/subway',

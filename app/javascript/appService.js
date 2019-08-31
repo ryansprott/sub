@@ -15,6 +15,9 @@ const appService = {
   getEquipmentStatus () {
     return doAjax('/equipment_status')
   },
+  getServiceStatus () {
+    return doAjax('/service_status')
+  },
   getAllSubwayStops () {
     return doAjax('/all_subway_stops')
   },
