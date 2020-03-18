@@ -9,7 +9,7 @@ class ApiController < ApplicationController
 
   def all_subway_stops
     out   = []
-    stops = SubwayStop.all.sort_by{|s| s[:gtfs_id]}.pluck(:gtfs_id, :line_name, :stop_name).uniq
+    stops = SubwayStop.all.sort_by(&:gtfs_id).pluck(:gtfs_id, :line_name, :stop_name).uniq
     stops.each do |stop|
       out.push({
         label: "#{stop[1]} - #{stop[2]}",
@@ -21,7 +21,7 @@ class ApiController < ApplicationController
 
   def all_bus_stops
     out = []
-    stops = BusStop.all.sort_by{|s| s[:code]}.pluck(:code, :name, :direction).uniq
+    stops = BusStop.all.sort_by(&:code).pluck(:code, :name, :direction).uniq
     stops.each do |stop|
       out.push({
         label: "#{stop[0]} - #{stop[1]} - #{stop[2]}",
@@ -34,10 +34,10 @@ class ApiController < ApplicationController
   def service_status
     data = Net::HTTP.get(URI.parse('http://web.mta.info/status/ServiceStatusSubway.xml'))
     hsh  = Hash.from_xml(data)
-    rsp  = hsh['Siri']['ServiceDelivery']['SituationExchangeDelivery']['Situations']['PtSituationElement']
-    out  = []
-    rsp.each do |item|
-      out.push({
+    els  = ['Siri', 'ServiceDelivery', 'SituationExchangeDelivery', 'Situations', 'PtSituationElement']
+    rsp  = hsh.dig(*els)
+    out  = rsp.map do |item|
+      {
         affects: item['Affects']['VehicleJourneys']['AffectedVehicleJourney'],
         consequences: item['Consequences'],
         long_description: item['LongDescription'],
@@ -47,9 +47,9 @@ class ApiController < ApplicationController
         end: item['PublicationWindow']['EndTime'],
         reason: item['ReasonName'],
         summary: item['Summary']
-      })
+      }
     end
-    render json: JSON.parse(out.to_json)
+    render json: out
   end
 
   def equipment_status
@@ -69,7 +69,7 @@ class ApiController < ApplicationController
         trains: item['trainno'].split('/')
       }
     end
-    render json: JSON.parse(resp.to_json)
+    render json: resp
   end
 
   def bus_arrivals
@@ -77,7 +77,22 @@ class ApiController < ApplicationController
     stop_id = params[:id]
     url     = "http://bustime.mta.info/api/siri/stop-monitoring.json?key=#{api_key}&MonitoringRef=#{stop_id}"
     data    = JSON.parse(Net::HTTP.get(URI.parse(url)))
-    render json: JSON.parse(data['Siri']['ServiceDelivery']['StopMonitoringDelivery'][0]['MonitoredStopVisit'].to_json)
+    visits  = data.dig('Siri', 'ServiceDelivery', 'StopMonitoringDelivery').first.dig('MonitoredStopVisit')
+
+    arrivals = visits.map do |visit|
+      journey = visit.dig('MonitoredVehicleJourney')
+      call    = journey.dig('MonitoredCall')
+      dists   = call.dig('Extensions', 'Distances')
+      {
+        published_line_name: journey.dig('PublishedLineName'),
+        destination_name: journey.dig('DestinationName'),
+        expected_arrival_time: call.dig('ExpectedArrivalTime'),
+        presentable_distance: dists.dig('PresentableDistance'),
+        stops_from_call: dists.dig('StopsFromCall')
+      }
+    end
+
+    render json: arrivals
   end
 
   def subway_arrivals

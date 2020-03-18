@@ -11,11 +11,11 @@
     </thead>
     <tbody>
       <tr v-for="(arrival, index) in arrivals" :key="index">
-        <td><b>{{arrival.MonitoredVehicleJourney.PublishedLineName}}</b></td>
-        <td>{{arrival.MonitoredVehicleJourney.DestinationName}}</td>
-        <td>{{arrival.MonitoredVehicleJourney.MonitoredCall.Extensions.Distances.PresentableDistance}}</td>
-        <td>{{arrival.MonitoredVehicleJourney.MonitoredCall.Extensions.Distances.StopsFromCall}}</td>
-        <td>{{formatDate(arrival.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime)}}</td>
+        <td><b>{{arrival.published_line_name}}</b></td>
+        <td>{{arrival.destination_name}}</td>
+        <td>{{arrival.presentable_distance}}</td>
+        <td>{{arrival.stops_from_call}}</td>
+        <td>{{formatDate(arrival.expected_arrival_time)}}</td>
       </tr>
     </tbody>
   </table>
