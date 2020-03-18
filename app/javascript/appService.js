@@ -19,16 +19,16 @@ const appService = {
     return doAjax('/service_status')
   },
   getAllSubwayStops () {
-    return doAjax('/all_subway_stops')
+    return doAjax('/api/subway_stops')
   },
   getSubwayArrivals (stopId) {
-    return doAjax('/subway_arrivals/', stopId)
+    return doAjax('/api/subway_stops/', stopId)
   },
   getAllBusStops () {
-    return doAjax('/all_bus_stops')
+    return doAjax('/api/bus_stops')
   },
   getBusArrivals (stopId) {
-    return doAjax('/bus_arrivals/', stopId)
+    return doAjax('/api/bus_stops/', stopId)
   }
 }
 
