@@ -4,12 +4,12 @@ module Api
     require 'google/transit/gtfs-realtime.pb'
 
     def index
-      stops  = SubwayStop.all.sort_by(&:gtfs_id).pluck(:gtfs_id, :line_name, :stop_name).uniq
+      stops  = SubwayStop.all.sort_by(&:gtfs_id).uniq
 
       output = stops.map do |stop|
         {
-          label: "#{stop[1]} - #{stop[2]}",
-          value: stop[0]
+          label: stop.label,
+          value: stop.gtfs_id
         }
       end
 
@@ -24,9 +24,7 @@ module Api
 
       unless stop.nil?
         for route in stop.routes do
-          feed_id = feeds_by_route(route)
-          data    = Net::HTTP.get(URI.parse("http://datamine.mta.info/mta_esi.php?key=#{api_key}&feed_id=#{feed_id}"))
-          feed    = Transit_realtime::FeedMessage.decode(data)
+          feed = SubwayService.get_feed(route)
           for entity in feed.entity do
             if entity.field?(:trip_update)
               entity.trip_update.stop_time_update.each do |item|
@@ -52,7 +50,7 @@ module Api
       nb.each { |key, value| value = natural_sort(value) }
       sb.each { |key, value| value = natural_sort(value) }
 
-      render json: JSON.parse({"NB" => nb, "SB" => sb}.to_json)
+      render json: {"NB" => nb, "SB" => sb}
     end
 
     private
@@ -64,24 +62,6 @@ module Api
 
     def natural_sort(array)
       array.sort_by! {|e| e.split(/(\d+)/).map {|a| a =~ /\d+/ ? a.to_i : a }}
-    end
-
-    def feeds_by_route(route)
-      feeds = {
-        "1" => ['1', '2', '3', '4', '5', '6', '6X', 'GS'],
-        "26" => ['A', 'C', 'E', 'H', 'FS'],
-        "16" => ['N', 'Q', 'R', 'W'],
-        "21" => ['B', 'D', 'F', 'M'],
-        "2" => ['L'],
-        "11" => ['SI'],
-        "31" => ['G'],
-        "36" => ['J', 'Z'],
-        "51" => ['7', '7X']
-      }
-      feeds.each { |key, val|
-        return key if val.include? route
-      }
-      nil
     end
   end
 end
