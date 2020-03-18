@@ -1,8 +1,4 @@
 class ApiController < ApplicationController
-  # require 'protobuf'
-  # require 'google/transit/gtfs-realtime.pb'
-  # require 'net/http'
-
   def all_equipment
     render json: Equipment.all
   end

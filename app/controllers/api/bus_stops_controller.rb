@@ -1,12 +1,12 @@
 module Api
   class BusStopsController < ApplicationController
     def index
-      stops  = BusStop.all.sort_by(&:code).pluck(:code, :name, :direction).uniq
+      stops  = BusStop.all.sort_by(&:code).uniq
 
       output = stops.map do |stop|
         {
-          label: "#{stop[0]} - #{stop[1]} - #{stop[2]}",
-          value: stop[0]
+          label: stop.label,
+          value: stop.code
         }
       end
 
