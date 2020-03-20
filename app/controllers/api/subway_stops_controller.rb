@@ -18,9 +18,7 @@ module Api
 
     def show
       nb, sb  = {}, {}
-      stop_id = params[:id]
-      api_key = Rails.application.secrets.MTA_SUBWAY_API_KEY
-      stop    = SubwayStop.find_by(gtfs_id: stop_id)
+      stop    = SubwayStop.find_by(gtfs_id: params[:id])
 
       unless stop.nil?
         for route in stop.routes do
@@ -30,10 +28,10 @@ module Api
               entity.trip_update.stop_time_update.each do |item|
                 route_id = entity.trip_update.trip.route_id
                 mins_away = item.arrival.nil? ? 0 : (item.arrival.time - DateTime.now.to_time.to_i) / 60
-                if item.stop_id == stop_id + 'N'
+                if item.stop_id == stop.gtfs_id + 'N'
                   nb[route_id] = [] unless nb.has_key? route_id
                   nb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && nb[route_id].length < 4
-                elsif item.stop_id == stop_id + 'S'
+                elsif item.stop_id == stop.gtfs_id + 'S'
                   sb[route_id] = [] unless sb.has_key? route_id
                   sb[route_id] << arriving(mins_away, item.arrival.time) if mins_away > 0 && sb[route_id].length < 4
                 end

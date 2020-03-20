@@ -3,7 +3,8 @@ class SubwayService
 
   def self.get_feed(route)
     feed_id = feeds_by_route(route)
-    data    = Net::HTTP.get(URI.parse("http://datamine.mta.info/mta_esi.php?key=#{@api_key}&feed_id=#{feed_id}"))
+    url     = "http://datamine.mta.info/mta_esi.php?key=#{@api_key}&feed_id=#{feed_id}"
+    data    = Net::HTTP.get(URI.parse(url))
     Transit_realtime::FeedMessage.decode(data)
   end
 
