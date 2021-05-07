@@ -13,16 +13,6 @@
               Subway
             </router-link>
           </li>
-          <li>
-            <router-link class="nav-item is-tab" to="/equipment" exact>
-              Equipment
-            </router-link>
-          </li>
-          <li>
-            <router-link class="nav-item is-tab" to="/service" exact>
-              Service
-            </router-link>
-          </li>
         </ul>
       </div>
     </div>

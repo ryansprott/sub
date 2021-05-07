@@ -4,8 +4,6 @@ import appService from './appService'
 Vue.use(Vuex)
 
 const state = {
-  equipmentStatus: [],
-  serviceStatus: [],
   userInputSubway: 'IND 8th Av - Fulton St Line - 86 St',
   allSubwayStops: [],
   currentSubwayStop: 'A20',
@@ -19,13 +17,7 @@ const state = {
 const store = new Vuex.Store({
   state,
   getters: {
-    getEquipmentStatus () {
-      return state.equipmentStatus
-    },
-    getServiceStatus () {
-      return state.serviceStatus
-    },
-    getAllSubwayStops () {
+    getAllSubwayStops() {
       return state.allSubwayStops
     },
     getNorthboundSubwayArrivals() {
@@ -34,57 +26,41 @@ const store = new Vuex.Store({
     getSouthboundSubwayArrivals() {
       return state.subwayArrivals.SB
     },
-    getCurrentSubwayStop () {
+    getCurrentSubwayStop() {
       return state.currentSubwayStop
     },
-    getAllBusStops () {
+    getAllBusStops() {
       return state.allBusStops
     },
     getBusArrivals() {
       return state.busArrivals
     },
-    getCurrentBusStop () {
+    getCurrentBusStop() {
       return state.currentBusStop
     }
   },
   mutations: {
-    updateServiceStatus (state, payload) {
-      state.serviceStatus = payload
-    },
-    updateEquipmentStatus (state, payload) {
-      state.equipmentStatus = payload
-    },
-    updateSubwayStops (state, payload) {
+    updateSubwayStops(state, payload) {
       state.allSubwayStops = payload
     },
-    updateSubwayArrivals (state, payload) {
+    updateSubwayArrivals(state, payload) {
       state.subwayArrivals = payload
     },
-    updateCurrentSubwayStop (state, payload) {
+    updateCurrentSubwayStop(state, payload) {
       state.currentSubwayStop = payload
     },
-    updateBusStops (state, payload) {
+    updateBusStops(state, payload) {
       state.allBusStops = payload
     },
-    updateBusArrivals (state, payload) {
+    updateBusArrivals(state, payload) {
       state.busArrivals = payload
     },
-    updateCurrentBusStop (state, payload) {
+    updateCurrentBusStop(state, payload) {
       state.currentBusStop = payload
     }
   },
   actions: {
-    fetchEquipmentStatusFromApi (context, payload) {
-      appService.getEquipmentStatus().then(data => {
-        context.commit('updateEquipmentStatus', data)
-      })
-    },
-    fetchServiceStatusFromApi (context, payload) {
-      appService.getServiceStatus().then(data => {
-        context.commit('updateServiceStatus', data)
-      })
-    },
-    fetchAllSubwayStopsFromApi (context, payload) {
+    fetchAllSubwayStopsFromApi(context, payload) {
       appService.getAllSubwayStops().then(data => {
         context.commit('updateSubwayStops', data)
       })
@@ -97,7 +73,7 @@ const store = new Vuex.Store({
         context.commit('updateCurrentSubwayStop', payload)
       }
     },
-    fetchAllBusStopsFromApi (context, payload) {
+    fetchAllBusStopsFromApi(context, payload) {
       appService.getAllBusStops().then(data => {
         context.commit('updateBusStops', data)
       })

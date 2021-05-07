@@ -12,22 +12,16 @@ axios.interceptors.response.use(response => {
 })
 
 const appService = {
-  getEquipmentStatus () {
-    return doAjax('/equipment_status')
-  },
-  getServiceStatus () {
-    return doAjax('/service_status')
-  },
-  getAllSubwayStops () {
+  getAllSubwayStops() {
     return doAjax('/api/subway_stops')
   },
-  getSubwayArrivals (stopId) {
+  getSubwayArrivals(stopId) {
     return doAjax('/api/subway_stops/', stopId)
   },
-  getAllBusStops () {
+  getAllBusStops() {
     return doAjax('/api/bus_stops')
   },
-  getBusArrivals (stopId) {
+  getBusArrivals(stopId) {
     return doAjax('/api/bus_stops/', stopId)
   }
 }
@@ -35,11 +29,11 @@ const appService = {
 const doAjax = (url, param = '') => {
   return new Promise((resolve) => {
     axios.get(url + param)
-    .then(response => {
-      resolve(response.data)
-    }).catch(err => {
-      console.error(err)
-    })
+      .then(response => {
+        resolve(response.data)
+      }).catch(err => {
+        console.error(err)
+      })
   })
 }
 
