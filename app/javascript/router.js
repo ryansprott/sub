@@ -38,7 +38,8 @@ const router = new VueRouter({
       path: '/index',
       name: 'Index',
       component: Bus
-    }]
+    }
+  ]
 })
 
 export default router

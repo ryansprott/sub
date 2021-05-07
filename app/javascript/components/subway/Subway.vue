@@ -6,13 +6,15 @@
       <div class="column">
         <subway-arrival
           :arrivals="getNorthboundSubwayArrivals"
-          direction="Northbound">
+          direction="Northbound"
+        >
         </subway-arrival>
       </div>
       <div class="column">
         <subway-arrival
           :arrivals="getSouthboundSubwayArrivals"
-          direction="Southbound">
+          direction="Southbound"
+        >
         </subway-arrival>
       </div>
     </div>
@@ -20,39 +22,47 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import SubwayArrival from './SubwayArrival.vue'
-import SubwaySelect from './SubwaySelect.vue'
+import { mapActions, mapGetters } from "vuex";
+import SubwayArrival from "./SubwayArrival.vue";
+import SubwaySelect from "./SubwaySelect.vue";
 export default {
   data() {
     return {
-      timer: ''
-    }
+      timer: "",
+    };
   },
   components: {
-    'subway-arrival': SubwayArrival,
-    'subway-select': SubwaySelect
+    "subway-arrival": SubwayArrival,
+    "subway-select": SubwaySelect,
   },
   computed: {
-    ...mapGetters(['getNorthboundSubwayArrivals', 'getSouthboundSubwayArrivals'])
+    ...mapGetters([
+      "getNorthboundSubwayArrivals",
+      "getSouthboundSubwayArrivals",
+    ]),
   },
   methods: {
     populateSubwayStops() {
-      this.$store.dispatch('fetchAllSubwayStopsFromApi')
+      this.$store.dispatch("fetchAllSubwayStopsFromApi");
     },
     refreshSubwayArrivals() {
-      this.$store.dispatch('fetchSubwayArrivalsFromApi', this.$store.state.currentSubwayStop)
-    }
+      this.$store.dispatch(
+        "fetchSubwayArrivalsFromApi",
+        this.$store.state.currentSubwayStop
+      );
+    },
   },
   mounted() {
     if (this.$store.state.allSubwayStops.length < 1) {
-      this.populateSubwayStops()
+      this.populateSubwayStops();
     }
-    this.refreshSubwayArrivals()
-    this.timer = setInterval(() => { this.refreshSubwayArrivals() }, 30000)
+    this.refreshSubwayArrivals();
+    this.timer = setInterval(() => {
+      this.refreshSubwayArrivals();
+    }, 30000);
   },
   beforeDestroy() {
-    clearInterval(this.timer)
-  }
-}
+    clearInterval(this.timer);
+  },
+};
 </script>

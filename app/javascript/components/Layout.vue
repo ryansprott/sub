@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import AppHeader from "./AppHeader.vue"
+import AppHeader from "./AppHeader.vue";
 export default {
   components: {
-    "app-header": AppHeader
-  }
-}
+    "app-header": AppHeader,
+  },
+};
 </script>
 
 <style lang="scss" src="bulma"></style>
