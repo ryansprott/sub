@@ -1,12 +1,7 @@
 module Api
   class BusStopsController < ApplicationController
     def index
-      stops = BusStop.order(:code).uniq.map do |stop|
-        {
-          label: stop.label,
-          value: stop.code,
-        }
-      end
+      stops = BusStop.by_code
 
       render json: stops
     end

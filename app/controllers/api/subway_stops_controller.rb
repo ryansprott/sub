@@ -1,12 +1,7 @@
 module Api
   class SubwayStopsController < ApplicationController
     def index
-      stops = SubwayStop.order(:gtfs_id).uniq.map do |stop|
-        {
-          label: stop.label,
-          value: stop.gtfs_id,
-        }
-      end
+      stops = SubwayStop.by_code
 
       render json: stops
     end
