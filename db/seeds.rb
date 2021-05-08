@@ -21,12 +21,7 @@ key = Rails.application.secrets.MTA_BUS_API_KEY
 base_url = "http://bustime.mta.info/api/where"
 bus_stop_uri = URI.open("#{base_url}/stop-ids-for-agency/MTA.json?key=#{key}")
 bus_stop_result = JSON.parse(bus_stop_uri.read)
-bus_stops = []
-bus_stop_result.dig("data", "list").each do |item|
-  bus_stops << item
-end
-
-bus_stops.each do |stop|
+bus_stop_result.dig("data", "list").each do |stop|
   begin
     bus_info_uri = URI.open("#{base_url}/stop/#{stop}.json?key=#{key}")
     bus_info_result = JSON.parse(bus_info_uri.read)

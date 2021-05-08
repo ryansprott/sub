@@ -18,9 +18,9 @@ See `config/secrets.yml.example`.
     cp config/secrets.yml.example config/secrets.yml
     # make sure to add your API keys to secrets.yml
     rails db:create
-    rails db:migrate RAILS_ENV=development
+    rails db:migrate
     rails db:seed
     rails s
 ```
 
-Please note that seeding the database involves making >10000 HTTP requests, and will take quite some time to complete.
+Please note that seeding the database involves making an HTTP request for each of the MTA's ~15,000 bus stops, and will thus take quite some time to complete.  See `db/seeds.rb`.
